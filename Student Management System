@@ -1,0 +1,107 @@
+[10:10 pm, 16/09/2022] Shagun Pandey: SOURCE CODE FOR BANKING TRANSACTIONS
+print("*BANK TRANSACTION*")
+#creating database
+import mysql.connector
+mydb=mysql.connector.connect(host="localhost",user="root",passwd="123456789")
+mycursor=mydb.cursor()
+mycursor.execute("create database if not exists bank")
+mycursor.execute("use bank")
+#creating required tables 
+mycursor.execute("create table if not exists bank_master(acno char(4) primary key,name varchar(30),city char(20),mobileno char(10),balance int(6))")
+mycursor.execute("create table if not exists banktrans(acno char (4),amount int(6),dot date,ttype char(1),foreign key (acno) references bank_master(acno))")
+mydb.commit()
+while(True):
+    
+    print("1=Create account")
+    print("2=Deposit money")
+    print("3=Withdraw money")
+    print("4=Display a…
+[10:10 pm, 16/09/2022] Shagun Pandey: #MENUDRIVEN PROGRAM OF MYSQL AND PYTHON FOR PROJECT
+import mysql.connector as ms
+cn=ms.connect(host='localhost',user='root',password='root123',database='project')
+cr=cn.cursor()
+def insert():
+    r=int(input('enter rollno:'))
+    n=input('enter name:')
+    f=int(input('enter fees:'))
+    cr.execute('insert into student values('+str(r)+',"'+n+'",'+str(f)+')')
+    cn.commit()
+def delete():
+    r=int(input('enter rollno to be deleted from record:'))
+    try:
+        cr.execute('delete from student where rollno='+str(r))
+        cn.commit()
+        print('RECORD SUCCESSFULLY DELETED')
+    except:
+        print('ROLLNO NOT FOUND')
+def describe():
+    cr.execute('desc student')
+    for i in cr:
+        print(i)
+def showrec():
+    cr.execute('select * from student')
+    for i in cr:
+        print(i)
+def addcol():
+    cname=input('enter name of column :')
+    dtype=input('enter datatype of column')
+    size=int(input('enter size of datatype'))
+    cr.execute('alter table student add '+cname+' '+dtype+'('+str(size)+')')
+    cn.commit()
+    print('COLUMN SUCCESSFULLY ADDED')
+def removecol():
+    cname=input('enter name of column :')
+    cr.execute('alter table student drop '+cname)
+    cn.commit()
+    print('COLUMN SUCCESSFULLY REMOVED')
+def update():
+    cname=input('enter name of column :')
+    updation=input('enter updation :')
+    cnfu=input('enter column name related to bfi :')
+    bfi=input('enter before updation info')
+    cr.execute('update student set '+cname+'="'+str(updation)+'" where '+cnfu+'='+'"'+bfi+'"')
+    cn.commit()
+def byname():
+    n=input('enter name:')
+    cr.execute('select * from student where name='+'"'+n+'"')
+    for i in cr:
+        print(i)
+def totalfee():
+    cr.execute('select sum(fees) from student')
+    for i in cr:
+        print(i)
+def totalrec():
+    print('total no.of records are:')
+    cr.execute('select count(*) from student')
+    for i in cr:
+        print(i)
+print('WELCOME TO MY PROJECT : STUDENT MANAGEMENT SYSTEM (SMS)')
+print('created by:SHRIYA JAIN')
+print('under the guidance of :PREENA MAM')
+print('1---> insert a new record \n 2---> delete a record \n 3---> describe table \n 4--->display all records')
+print(' 5--->add a column \n 6--->remove a column \n 7--->update a record \n 8--->display a record by name')
+print(' 9--->display sum of fees \n 10---> total number of records')
+ch=int(input('enter choice between 1 to 10:'))
+if ch==1:
+    insert()
+elif ch==2:
+    delete()
+elif ch==3:
+    describe()
+elif ch==4:
+    showrec()
+elif ch==5:
+    addcol()
+elif ch==6:
+    removecol()
+elif ch==7:
+    update()
+elif ch==8:
+    byname()
+elif ch==9:
+    totalfee()
+elif ch==10:
+    totalrec()
+else:
+    print('wrong choice')
+cn.close()
