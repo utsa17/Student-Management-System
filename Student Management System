@@ -1,4 +1,4 @@
-[10:10 pm, 16/09/2022] Shagun Pandey: SOURCE CODE FOR BANKING TRANSACTIONS
+#SOURCE CODE FOR BANKING TRANSACTIONS
 print("*BANK TRANSACTION*")
 #creating database
 import mysql.connector
